@@ -10,7 +10,10 @@
       </a>
     </div>
 
-    <el-table :data="tableData" stripe border height="660">
+    <el-table v-loading.body="loading"
+      element-loading-text="拼命加载中"
+      :data="tableData" 
+      stripe border height="660">
       <el-table-column label="房间类型" width="96">
         <template scope="scope">
           <div :contenteditable="scope.row.editable" :id="scope.$index + '_roomType'">
@@ -102,7 +105,8 @@
     },
     data() {
       return {
-        tableData: []
+        tableData: [],
+        loading: true
       }
     },
     created() {
@@ -114,6 +118,7 @@
             ele.agreeStatus = !ele.agreeStatus ? '同意 / 驳回' : ele.agreeStatus
             return ele
           })
+          this.loading = false
         })
         .catch(err => {
           alert('Fail to fetch bookings')

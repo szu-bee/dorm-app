@@ -14,7 +14,9 @@
       </a>
     </div>
 
-    <el-table :data="tableData" stripe border height="660" 
+    <el-table v-loading.body="loading"
+      element-loading-text="拼命加载中"
+      :data="tableData" stripe border height="660" 
       :default-sort="{prop: 'date', order: 'descending'}">
       <el-table-column label="房号" width="100" prop="room" sortable>
         <template scope="scope">
@@ -160,7 +162,8 @@
     },
     data() {
       return {
-        tableData: []
+        tableData: [],
+        loading: true
       }
     },
     created() {
@@ -171,6 +174,7 @@
             ele.status = '编辑'
             return ele
           })
+          this.loading = false
         })
         .catch(err => {
           alert('Fail to fetch livings')
