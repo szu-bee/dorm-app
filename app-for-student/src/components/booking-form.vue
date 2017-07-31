@@ -34,9 +34,13 @@
           </el-select>
         </el-form-item>
         <el-form-item label="Booking" prop="bookingDate">
-          <el-col :span="33">
-            <el-date-picker type="date" placeholder="Choose appointment date" v-model="form.bookingDate" class="date-picker"></el-date-picker>
-          </el-col>
+          <el-date-picker type="date" 
+            format="yyyy-MM-dd"
+            v-model="form.bookingDate"
+            placeholder="Choose appointment date" 
+            :picker-options="pickerOptions"
+            class="date-picker">
+          </el-date-picker>
         </el-form-item>
         <el-form-item>
           <el-button @click="submitForm('form')" type="primary">submit</el-button>
@@ -124,6 +128,11 @@
               trigger: 'blur, change'
             }
           ]
+        },
+        pickerOptions: {
+          disabledDate(time) {
+            return time.getTime() < Date.now() - 8.64e7
+          }
         }
       }
     },
@@ -178,9 +187,11 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            const addHours = (d, h) => new Date(d.getTime() + (h * 60 * 60 * 1000))
+            this.form.bookingDate = addHours(this.form.bookingDate, 8)
             this.$http
               .post('/be/api/booking', this.form)
-              .then((res) => {
+              .then(res => {
                 this.$msgbox({
                   type: 'success',
                   title: 'Successful!',
