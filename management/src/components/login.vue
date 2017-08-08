@@ -1,16 +1,19 @@
 <template>
   <div id="login">
     <h1>管理员登录页</h1>
-    <p>测试阶段，暂不设密码</p>
-    <!--<el-form :inline="true" :model="form" :rules="rules" ref="form" class="form">
-      <el-form-item label="请输入密码" prop="pass">
-        <el-input type="password" v-model="form.pass" auto-complete="off"></el-input>
+    <el-form :inline="true" :model="form" :rules="rules" ref="form" class="form">
+      <el-form-item prop="pass">
+        <el-input type="password" 
+          placeholder="请输入密码" 
+          v-model="form.pass" 
+          auto-complete="off">
+        </el-input>
       </el-form-item>
       <el-form-item class="buttons">
-        <el-button type="primary" @click="submitForm('form')">提交</el-button>
+        <el-button @click="submitForm('form')" type="primary">提交</el-button>
         <el-button @click="resetForm('form')">重置</el-button>
       </el-form-item>
-    </el-form>-->
+    </el-form>
   </div>
 </template>
 
@@ -41,17 +44,37 @@
       submitForm(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            console.log('ok!')
+            // const setCookie = (name, value, days = 7, path = '/') => {
+            //   const expires = new Date(Date.now() + days * 864e5).toUTCString()
+            //   document.cookie = name + '=' +
+            //     encodeURIComponent(value) + '; expires=' +
+            //     expires + '; path=' + path
+            // }
+            // const getCookie = (name) =>
+            //   document.cookie.split('; ').reduce((r, v) => {
+            //     const parts = v.split('=')
+            //     return parts[0] === name ? decodeURIComponent(parts[1]) : r
+            //   }, '')
+            // const deleteCookie = (name, path) => {
+            //   setCookie(name, '', -1, path)
+            // }
             this.$http
-              .put('http://localhost:3000/', this.form)
+              .post('/be/api/login', this.form)
               .then(res => {
-                console.log(res)
+                console.log(res.data)
+                this.$router.push('/booking')
               })
               .catch(err => {
-                console.error(err)
+                if (err.response) {
+                  console.log(err.response)
+                  if (err.response.status === 400) {
+                    this.$message.error('密码不正确！')
+                  } else {
+                    this.$message.error('服务器错误！')
+                  }
+                }
               })
           } else {
-            console.log('error')
             return false
           }
         })
@@ -65,20 +88,13 @@
 
 <style lang="less" scoped>
   #login {
-    display: flex;
-    flex-direction: column;
-  }
+    h1 {
+      margin: 4.2em 0 2.8em;
+    }
 
-  h1 {
-    margin: 4.2em 0 2.8em;
+    .form {
+      display: flex;
+      flex-direction: column;
+    }
   }
-
-  /*.form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .buttons {
-    margin-left: 1.2em;
-  }*/
 </style>

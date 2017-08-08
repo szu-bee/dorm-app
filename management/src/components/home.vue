@@ -1,15 +1,15 @@
 <template>
   <div id="home">
-    <booking></booking>
+    <login></login>
   </div>
 </template>
 
 <script>
-  import booking from './booking.vue'
+  import login from './login.vue'
 
   export default {
     components: {
-      booking
+      login
     }
   }
 </script>

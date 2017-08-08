@@ -22,7 +22,6 @@ router.post('/', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  console.log(req.query['studentid'])
   if (req.query['studentid']) {
     bookingModel.findOne({ studentId: req.query['studentid'] }, (err, booking) => {
       if (err) {

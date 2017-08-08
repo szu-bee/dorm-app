@@ -3,7 +3,7 @@
     <sidebar></sidebar>
     <div class="showcase">
       <h2>View booking result</h2>
-      <input v-model="studentId" 
+      <input v-model="studentId"
         @keyup.enter.prevent="getResult(studentId)" 
         placeholder="Your studentId">
       <div class="icon">
@@ -56,7 +56,13 @@
               if (err.response.status === 404) {
                 this.result = 'Student is not exsit! Please input correct student id!'
               } else {
-                this.result = 'Server error!'
+                if (typeof studentId !== 'number') {
+                  this.result = 'Number is required!'
+                } else if (studentId.toString().length < 10) {
+                  this.result = 'Student id could not be shorter than 10!'
+                } else {
+                  this.result = 'Server error!'
+                }
               }
             }
           })
@@ -88,6 +94,9 @@
         top: 148px;
         right: 0;
         padding-right: 8px;
+        &:hover {
+          cursor: pointer;
+        }
 
         button {
           width: 32px;

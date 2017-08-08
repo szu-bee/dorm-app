@@ -4,7 +4,7 @@ const livingModel = require('../schemas/living');
 const exportCsv = require('../utils/exportCsv');
 
 router.post('/', (req, res) => {
-  livingModel.create(req.body, (err, saved) => {
+  livingModel.create(req, (err, saved) => {
     if (err) {
       res.status(500).send('fail to save living info.');
     } else {
@@ -69,7 +69,7 @@ router.put('/', (req, res) => {
 router.delete('/', (req, res) => {
   livingModel.findByIdAndRemove(req.query.id)
     .then(() => {
-      res.send('Succeed!');
+      res.send('Succeed delete!');
     })
     .catch(err => {
       res.status(500).send('Fail to delete row');
