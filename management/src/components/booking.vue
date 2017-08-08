@@ -114,14 +114,13 @@
         .get('/be/api/booking')
         .then(res => {
           this.tableData = res.data.map(ele => {
-            console.log(ele)
             ele.agreeStatus = !ele.agreeStatus ? '同意 / 驳回' : ele.agreeStatus
             return ele
           })
           this.loading = false
         })
         .catch(err => {
-          alert('Fail to fetch bookings')
+          this.$message.error('获取数据失败！')
           console.error(err)
         })
     },
@@ -145,7 +144,6 @@
                 .put('/be/api/booking', replica)
                 .then(() => {
                   row.agreeStatus = '已同意'
-                  console.log(row)
                   done()
                 })
                 .catch(err => {
@@ -184,7 +182,6 @@
           .put('/be/api/booking', replica)
           .then(res => {
             row.agreeStatus = '同意 / 驳回'
-            console.log(res)
           })
           .catch(err => {
             console.error(err)

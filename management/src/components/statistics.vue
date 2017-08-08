@@ -91,7 +91,7 @@
           })
         })
         .catch(err => {
-          alert('Fail to fetch living statistics')
+          this.$message.error('获取数据失败！')
           console.error(err)
         })
     }

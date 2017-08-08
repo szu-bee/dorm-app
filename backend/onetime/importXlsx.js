@@ -24,9 +24,9 @@ xlsx2json('living.xls', {
 .then(json => {
   json[0].filter(row => row && row.room)
     .forEach(transRow => {
-      axios.post('http://localhost:4567/living', transRow)
+      axios.post('http://localhost:4567/be/api/living', transRow)
         .then(res => {
-          console.log(res)
+          console.log(res);
         })
         .catch(e => {
           console.error(e);

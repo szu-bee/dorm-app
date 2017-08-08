@@ -4,18 +4,21 @@
     <div class="form">
       <el-form ref="form" :model="form">
         <el-form-item label="标题" prop="title">
-          <el-input v-model="form.title" :title="form.title"></el-input>
+          <el-input v-model="form.title" 
+            :title="form.title">
+          </el-input>
         </el-form-item>
         <el-form-item label="内容" prop="content">
           <el-input v-model="form.content" 
             :content="form.content"
-            type="textarea"
-            :row="6"
-            class="textarea"></el-input>
+            :rows="6"
+            :autosize="{ minRows: 2, maxRows: 10 }"
+            type="textarea">
+          </el-input>
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="submitForm('form')">发布</el-button>
+          <el-button @click="submitForm('form')" type="primary">发布</el-button>
           <el-button @click="resetForm('form')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -62,8 +65,6 @@
 
 <style lang="less" scoped>
   .form {
-    display: flex;
-    justify-content: center;
-    margin: 36px;
+    margin: 4% 30%;
   }
 </style>

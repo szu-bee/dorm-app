@@ -177,7 +177,7 @@
           this.loading = false
         })
         .catch(err => {
-          alert('Fail to fetch livings')
+          this.$message.error('获取数据失败！')
           console.error(err)
         })
     },
@@ -225,12 +225,12 @@
           this.$http
             .put('/be/api/living', row)
             .then(res => {
-              console.log(row)
               row.editable = false
               row.status = '编辑'
+              this.$message.success('保存成功！')
             })
             .catch(err => {
-              alert('Fail to save!')
+              this.$message.error('保存失败！')
               console.error(err)
             })
         }
