@@ -44,25 +44,12 @@
       submitForm(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            // const setCookie = (name, value, days = 7, path = '/') => {
-            //   const expires = new Date(Date.now() + days * 864e5).toUTCString()
-            //   document.cookie = name + '=' +
-            //     encodeURIComponent(value) + '; expires=' +
-            //     expires + '; path=' + path
-            // }
-            // const getCookie = (name) =>
-            //   document.cookie.split('; ').reduce((r, v) => {
-            //     const parts = v.split('=')
-            //     return parts[0] === name ? decodeURIComponent(parts[1]) : r
-            //   }, '')
-            // const deleteCookie = (name, path) => {
-            //   setCookie(name, '', -1, path)
-            // }
             this.$http
               .post('/be/api/login', this.form)
               .then(res => {
-                console.log(res.data)
-                this.$router.push('/booking')
+                this.$cookie.set('sid', res.data, { expires: 1, domain: 'localhost', secure: true })
+                this.$router.replace('/booking')
+                console.log(document.cookie)
               })
               .catch(err => {
                 if (err.response) {

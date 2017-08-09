@@ -1,4 +1,5 @@
 **/node_modules
+**/public/*
 .vscode/*
 living.xls
 pass.js

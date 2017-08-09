@@ -4,15 +4,16 @@ import Vue from 'vue'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueCookie from 'vue-cookie'
 
 import App from './App'
 import router from './router'
 
 Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
+Vue.use(VueCookie)
 
 // Vue.config.productionTip = false
 

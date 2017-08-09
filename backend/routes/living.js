@@ -4,7 +4,7 @@ const livingModel = require('../schemas/living');
 const exportCsv = require('../utils/exportCsv');
 
 router.post('/', (req, res) => {
-  livingModel.create(req, (err, saved) => {
+  livingModel.create(req.body, (err, saved) => {
     if (err) {
       res.status(500).send('fail to save living info.');
     } else {
@@ -54,16 +54,14 @@ router.get('/statistics', (req, res) => {
 });
 
 router.put('/', (req, res) => {
-  livingModel.findOneAndUpdate({
-      _id: req.body._id
-    },
-    req.body, (err) => {
-      if (err) {
-        res.status(500).send('fail to update living info.');
-      } else {
-        res.send('living info update.');
-      }
-    })
+  livingModel.findOneAndUpdate({ _id: req.body._id }, req.body, err => {
+    if (err) {
+      res.status(500).send('fail to update living info.');
+    } else {
+      console.log(req.body)
+      res.send('living info updated.');
+    }
+  })
 });
 
 router.delete('/', (req, res) => {
