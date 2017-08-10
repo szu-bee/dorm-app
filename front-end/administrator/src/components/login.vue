@@ -5,7 +5,8 @@
       <el-form-item prop="pass">
         <el-input type="password" 
           placeholder="请输入密码" 
-          v-model="form.pass" 
+          v-model="form.pass"
+          @keyup.enter.native.prevent="submitForm('form')"
           auto-complete="off">
         </el-input>
       </el-form-item>
@@ -78,9 +79,9 @@
       margin: 4.2em 0 2.8em;
     }
 
-    .form {
-      display: flex;
-      flex-direction: column;
-    }
+    // .form {
+    //   display: flex;
+    //   flex-direction: column;
+    // }
   }
 </style>

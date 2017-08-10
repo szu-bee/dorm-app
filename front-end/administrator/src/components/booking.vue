@@ -14,7 +14,7 @@
       element-loading-text="拼命加载中"
       :data="tableData" 
       stripe border height="660">
-      <el-table-column label="房间类型" width="96">
+      <el-table-column label="房间类型" width="120">
         <template scope="scope">
           <div :contenteditable="scope.row.editable" :id="scope.$index + '_roomType'">
             {{ scope.row.roomType }}
@@ -30,7 +30,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="性别" width="80">
+      <el-table-column label="性别" width="120">
         <template scope="scope">
           <div :contenteditable="scope.row.editable" :id="scope.$index + '_sex'">
             {{ scope.row.sex }}
@@ -153,7 +153,7 @@
                   done()
                 })
                 .catch(err => {
-                  this.$message.error('booking: 服务器错误！')
+                  this.$message.error('服务端错误!')
                   console.error(err)
                 })
             } else {
@@ -165,7 +165,7 @@
                   done()
                 })
                 .catch(err => {
-                  this.$message.error('booking: 服务器错误！')
+                  this.$message.error('服务端错误!')
                   console.error(err)
                 })
             }
@@ -184,7 +184,7 @@
             row.agreeStatus = '同意 / 驳回'
           })
           .catch(err => {
-            this.$message.error('booking: 服务器错误！')
+            this.$message.error('服务端错误!')
             console.error(err)
           })
       }

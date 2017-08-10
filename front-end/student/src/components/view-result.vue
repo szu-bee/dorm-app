@@ -4,7 +4,7 @@
     <div class="showcase">
       <h2>View booking result</h2>
       <input v-model="studentId"
-        @keyup.enter.prevent="getResult(studentId)" 
+        @keyup.enter="getResult(studentId)" 
         placeholder="Your studentId">
       <div class="icon">
         <icon-button @click="getResult(studentId)">
@@ -86,7 +86,12 @@
         padding-left: 12px;
         border: 1px solid #bfcbd9;
         border-radius: 4px;
+        outline: none;
         transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+
+        &:focus {
+          border: 1.6px solid #20a0ff;
+        }
       }
 
       .icon {
