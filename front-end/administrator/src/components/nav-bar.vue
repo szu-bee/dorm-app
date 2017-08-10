@@ -14,10 +14,8 @@
   export default {
     methods: {
       toLivingPage() {
-        this.$http
-          .get('/be/api/living')
+        this.$http.get('/be/api/living')
           .then(res => {
-            console.log(res)
             this.$router.push('/living')
           })
           .catch(err => {
@@ -32,10 +30,8 @@
           })
       },
       toStatiPage() {
-        this.$http
-          .get('/be/api/living')
+        this.$http.get('/be/api/living')
           .then(res => {
-            console.log(res)
             this.$router.push('/statistics')
           })
           .catch(err => {
@@ -50,10 +46,8 @@
           })
       },
       toBookingPage() {
-        this.$http
-          .get('/be/api/booking')
+        this.$http.get('/be/api/booking')
           .then(res => {
-            console.log(res)
             this.$router.push('/booking')
           })
           .catch(err => {
@@ -68,10 +62,8 @@
           })
       },
       toNotiPage() {
-        this.$http
-          .get('/be/api/noti')
+        this.$http.get('/be/api/noti')
           .then(res => {
-            console.log(res)
             this.$router.push('/noti')
           })
           .catch(err => {

@@ -35,6 +35,11 @@ app.use(cors());
 app.use('/be/api/login', login);
 
 app.use((req, res, next) => {
+  if (req.path === '/be/api/noti' && req.method === 'GET') {
+    next();
+    return;
+  }
+
   const sid = req.cookies.sid;
   if (!sid) {
     res.status(403).send('No cookie!');
