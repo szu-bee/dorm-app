@@ -41,6 +41,22 @@
         }
       }
     },
+    created() {
+      this.$http.get('/be/api/noti')
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          if (err.response) {
+            console.log(err.response)
+            if (err.response.status === 403) {
+              this.$router.replace('/login')
+            } else {
+              this.$message.error('服务端错误!')
+            }
+          }
+        })
+    },
     methods: {
       submitForm(formName) {
         this.$http

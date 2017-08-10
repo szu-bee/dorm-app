@@ -120,8 +120,14 @@
           this.loading = false
         })
         .catch(err => {
-          this.$message.error('获取数据失败！')
-          console.error(err)
+          if (err.response) {
+            console.log(err.response)
+            if (err.response.status === 403) {
+              this.$router.replace('/login')
+            } else {
+              this.$message.error('服务端错误!')
+            }
+          }
         })
     },
     methods: {
@@ -147,10 +153,7 @@
                   done()
                 })
                 .catch(err => {
-                  this.$message({
-                    type: 'error',
-                    message: 'Fail to agree'
-                  })
+                  this.$message.error('booking: 服务器错误！')
                   console.error(err)
                 })
             } else {
@@ -162,10 +165,7 @@
                   done()
                 })
                 .catch(err => {
-                  this.$message({
-                    type: 'error',
-                    message: 'Fail to reject'
-                  })
+                  this.$message.error('booking: 服务器错误！')
                   console.error(err)
                 })
             }
@@ -184,6 +184,7 @@
             row.agreeStatus = '同意 / 驳回'
           })
           .catch(err => {
+            this.$message.error('booking: 服务器错误！')
             console.error(err)
           })
       }

@@ -23,7 +23,6 @@ router.get('/', (req, res) => {
     if (err) {
       res.status(500).send('Fail to get notification.')
     }
-    console.log(notification);
     res.json(notification);
   }).exec()
 });

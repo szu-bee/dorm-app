@@ -47,15 +47,14 @@
             this.$http
               .post('/be/api/login', this.form)
               .then(res => {
-                this.$cookie.set('sid', res.data, { expires: 1, domain: 'localhost', secure: true })
+                this.$cookie.set('sid', res.data, { expires: 1, domain: 'localhost' })
                 this.$router.replace('/booking')
-                console.log(document.cookie)
               })
               .catch(err => {
                 if (err.response) {
                   console.log(err.response)
                   if (err.response.status === 400) {
-                    this.$message.error('密码不正确！')
+                    this.$message.error('密码错误！')
                   } else {
                     this.$message.error('服务器错误！')
                   }

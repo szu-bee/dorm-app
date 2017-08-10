@@ -91,8 +91,14 @@
           })
         })
         .catch(err => {
-          this.$message.error('获取数据失败！')
-          console.error(err)
+          if (err.response) {
+            console.log(err.response)
+            if (err.response.status === 403) {
+              this.$router.replace('/login')
+            } else {
+              this.$message.error('服务端错误!')
+            }
+          }
         })
     }
   }

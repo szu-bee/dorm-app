@@ -32,42 +32,45 @@ app.use('/be', express.static(path.join(__dirname, 'public')));
 
 app.use(helmet());
 app.use(cors());
-
-app.use('/be/api', index);
 app.use('/be/api/login', login);
-app.use('/be/api/living', living);
-app.use('/be/api/noti', noti);
-app.use('/be/api/booking', booking);
 
 app.use((req, res, next) => {
-  if (req.path === '/login' && 
-    req.method === 'POST') {
-    next();
-  }
+  // if (req.path === '/be/api/login' && 
+  //   req.method === 'POST') {
+  //   next();
+  //   return;
+  // }
 
-  const sid = req.body.sessionId;
+  const sid = req.cookies.sid;
+  if (!sid) {
+    res.status(403).send('No cookie!');
+    return;
+  }
   if (sid.length !== 313) {
+    res.status(403).send('False sid!');
     return;
   }
 
-  loginModel.findOne(login[0])
-    .then(res => {
-      const expectedSid = res.sessionId;
-      console.log(res);
-      console.log(expectedSid);
-
+  loginModel.find({})
+    .then(login => {
+      const expectedSid = login[0].sessionId;
       const isTimeOut = sid.substring(sid.length - 13) > 
         expectedSid.substring(expectedSid.length - 13);
 
       if (sid !== expectedSid || isTimeOut) {
-        res.send(400).end();
+        res.send(403).send('False sid!');
       }
       next();
     })
     .catch(err => {
-      res.status(500).send('Could not find sessionId!');
+      res.status(500).send('Fail to find sid from db!');
     });
 });
+
+app.use('/be/api', index);
+app.use('/be/api/living', living);
+app.use('/be/api/noti', noti);
+app.use('/be/api/booking', booking);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

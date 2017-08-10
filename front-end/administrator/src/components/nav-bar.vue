@@ -14,20 +14,80 @@
   export default {
     methods: {
       toLivingPage() {
-        this.$router.push('/living')
+        this.$http
+          .get('/be/api/living')
+          .then(res => {
+            console.log(res)
+            this.$router.push('/living')
+          })
+          .catch(err => {
+            if (err.response) {
+              console.log(err.response)
+              if (err.response.status === 403) {
+                this.$router.replace('/login')
+              } else {
+                this.$message.error('服务端错误!')
+              }
+            }
+          })
       },
       toStatiPage() {
-        this.$router.push('/statistics')
+        this.$http
+          .get('/be/api/living')
+          .then(res => {
+            console.log(res)
+            this.$router.push('/statistics')
+          })
+          .catch(err => {
+            if (err.response) {
+              console.log(err.response)
+              if (err.response.status === 403) {
+                this.$router.replace('/login')
+              } else {
+                this.$message.error('服务端错误!')
+              }
+            }
+          })
       },
       toBookingPage() {
-        this.$router.push('/booking')
+        this.$http
+          .get('/be/api/booking')
+          .then(res => {
+            console.log(res)
+            this.$router.push('/booking')
+          })
+          .catch(err => {
+            if (err.response) {
+              console.log(err.response)
+              if (err.response.status === 403) {
+                this.$router.replace('/login')
+              } else {
+                this.$message.error('服务端错误!')
+              }
+            }
+          })
       },
       toNotiPage() {
-        this.$router.push('/noti')
+        this.$http
+          .get('/be/api/noti')
+          .then(res => {
+            console.log(res)
+            this.$router.push('/noti')
+          })
+          .catch(err => {
+            if (err.response) {
+              console.log(err.response)
+              if (err.response.status === 403) {
+                this.$router.replace('/login')
+              } else {
+                this.$message.error('服务端错误!')
+              }
+            }
+          })
       },
       deleteCookie() {
         this.$cookie.delete('sid', { domain: 'localhost' })
-        this.$router.replace('/')
+        this.$router.replace('/login')
       }
     }
   }

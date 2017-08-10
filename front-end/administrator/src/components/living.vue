@@ -177,8 +177,14 @@
           this.loading = false
         })
         .catch(err => {
-          this.$message.error('获取数据失败！')
-          console.error(err)
+          if (err.response) {
+            console.log(err.response)
+            if (err.response.status === 403) {
+              this.$router.replace('/login')
+            } else {
+              this.$message.error('服务端错误!')
+            }
+          }
         })
     },
     methods: {
@@ -208,6 +214,7 @@
             this.tableData.push(res.data)
           })
           .catch(err => {
+            this.$message.error('创建失败！')
             console.error(err)
           })
       },
@@ -249,25 +256,17 @@
                 .delete(`/be/api/living?id=${row._id}`)
                 .then(() => {
                   this.tableData.splice(index, 1)
+                  this.$message.success('删除成功！')
                   done()
                 })
                 .catch(err => {
-                  this.$message({
-                    type: 'error',
-                    message: 'Fail to delete row'
-                  })
+                  this.$message.error('删除失败！')
                   console.error(err)
                 })
             } else {
               done()
             }
           }
-        })
-        .then(action => {
-          this.$message({
-            type: 'success',
-            message: action
-          })
         })
       }
     }
