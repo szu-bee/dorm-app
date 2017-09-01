@@ -35,6 +35,11 @@ app.use(cors());
 app.use('/be/api/login', login);
 
 app.use((req, res, next) => {
+  if (req.path === '/be/api/living' && req.method === 'POST') {
+    next();
+    return;
+  }
+
   if (req.path === '/be/api/noti' && req.method === 'GET') {
     next();
     return;
